@@ -2,33 +2,39 @@ import pandas as pd
 import numpy as np
 
 file_path = '/Users/tatevikbrsoyan/Desktop/physics_we/Spectrum_of_fruits/Fruit_purees_FTIR.csv'
-d = pd.read_csv(file_path, header=None)
+readfile = pd.read_csv(file_path, header=None)
 
-wave_numbers = d.iloc[4:, 0].values
-intensity = d.iloc[4:, 1:].values
-fruit = d.iloc[0:3, 1:].values # shows which fruit it is
+# Trying to define a custom iloc function to not repeat the code in the lines 15-17
+
+# def iloc_func(row_start, row_end, column_start, column_end):
+#    if column_end == None:
+#     column_end = len(readfile.columns)
+#    return readfile.iloc[row_start:row_end, column_start:column_end].values
+  
+# wave_numbers1 = iloc_func(4,None,0,None)
+
+wave_numbers = readfile.iloc[4:, 0].values
+intensity = readfile.iloc[4:, 1:].values
+fruit = readfile.iloc[0:3, 1:].values # shows which fruit it is
 
 fruit_bool = np.array(fruit, dtype=bool)
 
-raspberry_columns = np.where(fruit_bool[0])[0]
-strawberry_columns = np.where(fruit_bool[1])[0]
-neither_columns = np.where(fruit_bool[2])[0]
+fruit_names = {
+    'Raspberry': 0,
+    'Strawberry':1,
+    'Neither':2
+}
 
+def find_column(array, row_index):
+    return np.where(array[row_index])[0]
 
-print("Raspberry columns:")
-for index in raspberry_columns:
-    print(f"Column {index + 1}: Raspberry")
-    print(intensity[:, index])  
+fruit_columns = {}
 
-print("\nStrawberry columns:")
-for index in strawberry_columns:
-    print(f"Column {index + 1}: Strawberry")
-    print(intensity[:, index])  
+for fruit_name, row_index in fruit_names.items():
+    fruit_columns[fruit_name] = find_column(fruit_bool, row_index)
 
-print("\nNeither columns:")
-for index in neither_columns:
-    print(f"Column {index + 1}: Neither")
-    print(intensity[:, index])  
+# for fruit_name, columns in fruit_columns.items():
+#     print(f"{fruit_name}: {columns}")
 
 
  
