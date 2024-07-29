@@ -4,18 +4,18 @@ import numpy as np
 file_path = '/Users/tatevikbrsoyan/Desktop/physics_we/Spectrum_of_fruits/Fruit_purees_FTIR.csv'
 readfile = pd.read_csv(file_path, header=None)
 
-def iloc_func(row_start, row_end, column_start, column_end):
+def iloc_func(file, row_start, row_end, column_start, column_end):
    if column_end == None and row_end == None:
-      value = readfile.iloc[row_start:, column_start:]
+      value = file.iloc[row_start:, column_start:]
    elif column_end == None:
-    value = readfile.iloc[row_start:row_end, column_start:]
+    value = file.iloc[row_start:row_end, column_start:]
    elif row_end == None:
-    value = readfile.iloc[row_start:, column_start:column_end]
+    value = file.iloc[row_start:, column_start:column_end]
    return value
   
-wave_numbers = iloc_func(4, None, 0, 1)
-intensity = iloc_func(4, None, 1, None)
-fruit = iloc_func(0,3,1,None)
+wave_numbers = iloc_func(readfile, 4, None, 0, 1)
+intensity = iloc_func(readfile, 4, None, 1, None)
+fruit = iloc_func(readfile, 0,3,1,None)
 
 fruit_bool = np.array(fruit, dtype=bool)
 
