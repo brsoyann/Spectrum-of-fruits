@@ -6,8 +6,6 @@ from fruit_data import fruitData
 file_path = '/home/marihayrapetyan/physics_and_we/Spectrum-of-fruits/Fruit_purees_FTIR.csv'
 readfile = pd.read_csv(file_path, header=None)
 
-
-
 Data = fruitData(readfile)
 wave_numbers = Data.iloc_func(4, None, 0, 1)
 intensity = Data.iloc_func(4, None, 1, None)
