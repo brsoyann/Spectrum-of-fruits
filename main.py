@@ -3,7 +3,10 @@ import numpy as np
 
 from fruit_data import fruitData
 
-file_path = '/home/marihayrapetyan/physics_and_we/Spectrum-of-fruits/Fruit_purees_FTIR.csv'
+with open('source.txt', 'r') as src:
+    lines = src.readlines()
+
+file_path = lines[1].strip()
 readfile = pd.read_csv(file_path, header=None)
 
 Data = fruitData(readfile)
