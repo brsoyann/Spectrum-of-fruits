@@ -1,21 +1,22 @@
 import pandas as pd
 import numpy as np
 
-file_path = '/Users/tatevikbrsoyan/Desktop/physics_we/Spectrum_of_fruits/Fruit_purees_FTIR.csv'
+from fruit_data import fruitData
+
+with open('source.txt', 'r') as src:
+    lines = src.readlines()
+
+for line in lines:
+    if line.startswith('path='):
+        path_line = line
+
+file_path = path_line[path_line.find('"')+1:path_line.rfind('"')]
 readfile = pd.read_csv(file_path, header=None)
 
-def iloc_func(file, row_start, row_end, column_start, column_end):
-   if column_end == None and row_end == None:
-      value = file.iloc[row_start:, column_start:]
-   elif column_end == None:
-    value = file.iloc[row_start:row_end, column_start:]
-   elif row_end == None:
-    value = file.iloc[row_start:, column_start:column_end]
-   return value
-  
-wave_numbers = iloc_func(readfile, 4, None, 0, 1)
-intensity = iloc_func(readfile, 4, None, 1, None)
-fruit = iloc_func(readfile, 0,3,1,None)
+Data = fruitData(readfile)
+wave_numbers = Data.iloc_func(4, None, 0, 1)
+intensity = Data.iloc_func(4, None, 1, None)
+fruit = Data.iloc_func(0, 3, 1, None)
 
 fruit_bool = np.array(fruit, dtype=bool)
 
