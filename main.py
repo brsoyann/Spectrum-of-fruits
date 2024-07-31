@@ -4,9 +4,9 @@ import numpy as np
 from fruit_data import fruitData
 
 with open('source.txt', 'r') as src:
-    lines = src.readlines()
+    line = src.read()
 
-file_path = lines[1].strip()
+file_path = line[line.find('"')+1:line.rfind('"')]
 readfile = pd.read_csv(file_path, header=None)
 
 Data = fruitData(readfile)
