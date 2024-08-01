@@ -1,16 +1,12 @@
 import pandas as pd
 import numpy as np
-
 from fruit_data import fruitData
+import srcread
 
 with open('source.txt', 'r') as src:
     lines = src.readlines()
 
-for line in lines:
-    if line.startswith('path='):
-        path_line = line
-
-file_path = path_line[path_line.find('"')+1:path_line.rfind('"')]
+file_path = srcread.findparameterByType(lines, 'path')
 readfile = pd.read_csv(file_path, header=None)
 
 Data = fruitData(readfile)
