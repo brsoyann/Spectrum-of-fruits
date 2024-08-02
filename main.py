@@ -1,13 +1,12 @@
 import pandas as pd
 import numpy as np
 from fruit_data import fruitData
-import srcread
+from srcread import SRCRead
 
-with open('source.txt', 'r') as src:
-    lines = src.readlines()
+srcFile = SRCRead('source.txt')
 
-file_path = srcread.findparameterByType(lines, 'path')
-readfile = pd.read_csv(file_path, header=None)
+csvPath = srcFile.findParameterByPath('path')
+readfile = pd.read_csv(csvPath, header=None)
 
 Data = fruitData(readfile)
 wave_numbers = Data.iloc_func(4, None, 0, 1)
